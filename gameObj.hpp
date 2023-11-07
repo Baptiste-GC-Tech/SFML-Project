@@ -2,47 +2,41 @@
 #define GAME_OBJ
 
 #include <iostream>
-#include <SFML/Graphics/Shape.hpp>
-#include <SFML/System/Vector2.hpp>
-#include <SFML/System/Time.hpp>
+#include <array>
+
+#include <SFML/Graphics.hpp>
 
 class gameObj
 {
 private:
 	
+	// List of loaded in memory gameObj
+	static std::vector<gameObj*> objList;
+
 	// "Existence" related attributes
-	int pos[2];
+	sf::Vector2f pos;
 	sf::Shape* shape;
 
 	// Physics related attributes
 	int speed;
-	sf::FloatRect boundingBox;
-	sf::Vector2f vect;
 
-	// Physics transformations
-	void move(sf::Time ARGtime);
-	void rotate(sf::Time ARGtime, );
-	void bounce();
+	//// Physics transformations
+	//void move(sf::Time ARGtime);
+	///*  Rotation of object maybe ?  */
+	//void bounce(sf::Shape* ARGcollider, int ARGbounciness);
 
-	// Physics detectors
-	bool objCollision();
-	bool windowCollision();
+	//// Physics detectors
+	//bool objCollision();
+	//bool windowCollision();
 
 public:
 
 	// Constru & Destru
-	gameObj(int ARGpos[2], sf::Shape* ARGshape);
-	gameObj(int ARGpos[2], sf::Shape* ARGshape, int ARGspeed, sf::Vector2f ARGvect);
+	gameObj(sf::Vector2f ARGpos, float ARGradius);
+	gameObj(sf::Vector2f ARGpos, sf::Vector2f ARGsize);
 	~gameObj();
 
-	// Getters
-	int getSpeed();
-	int* getPos();
-	sf::Shape* getShape();
-	sf::Vector2f getVect();
-	sf::FloatRect getBoundingBox();
-
-	// Peeker hehehe >:)
-	void peek();
+	// Drawing the shape on a window
+	void draw(sf::RenderWindow& ARGwin);
 };
 #endif

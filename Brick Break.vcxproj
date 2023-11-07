@@ -69,6 +69,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:\Users\bboismenu\Documents\Libraries\SFML 2.6.1 VC\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\bboismenu\Documents\Libraries\SFML 2.6.1 VC\lib;$(LibraryPath)</LibraryPath>
+    <PublicIncludeDirectories>C:\Users\bboismenu\Documents\Libraries\SFML 2.6.1 VC\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -77,6 +78,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:\Users\bboismenu\Documents\Libraries\SFML 2.6.1 VC\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\bboismenu\Documents\Libraries\SFML 2.6.1 VC\lib;$(LibraryPath)</LibraryPath>
+    <PublicIncludeDirectories>C:\Users\bboismenu\Documents\Libraries\SFML 2.6.1 VC\include;$(PublicIncludeDirectories)</PublicIncludeDirectories>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

@@ -1,3 +1,2 @@
-﻿  gameObj.cpp
-C:\Users\bboismenu\source\repos\SFML-Project\gameObj.hpp(33,19): error C3646: 'V' : spécificateur de substitution inconnu
-C:\Users\bboismenu\source\repos\SFML-Project\gameObj.hpp(34,1): error C2143: erreur de syntaxe : absence de ';' avant '}'
+﻿  main.cpp
+  Brick Break.vcxproj -> C:\Users\bboismenu\source\repos\SFML-Project\x64\Debug\Brick Break.exe
