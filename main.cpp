@@ -17,11 +17,16 @@ int main()
     sf::VideoMode format = sf::VideoMode::getDesktopMode();
     format.height /= 2;
     format.width /= 2;
-    sf::RenderWindow window(format, "Physicks");
+    sf::RenderWindow window(format, "Phfysicks");
+
+    // #$ DEBUG
+    // Absurd framerate limit to avoid flooding the console
+    window.setFramerateLimit(1);
 
     // #$ DEBUG
     // Test of gameObj class
-    gameObj dummyObj(sf::Vector2f(5.f, 5.f), 30.f);
+    gameObj dummyCircle(sf::Vector2f(5.f, 5.f), 30.f);
+    gameObj dummySquare(sf::Vector2f(100.f, 50.f), sf::Vector2f(30.f, 30.f));
 
     while (window.isOpen())
     {
@@ -34,17 +39,18 @@ int main()
 
         // Clears what was previously in the window to re-draw everything again
         window.clear();
-        std::cout << "Cleared window\n";
 
         // Draws everything needed in the window
-        dummyObj.draw(window);
-        std::cout << "Drawn on window\n";
+       dummySquare.listAllInstances();
+        std::cout << "\n\n Displaying...\n\n";
+        for (auto obj : dummyCircle.getLISTgameObj())
+        {
+            obj->peekAtInstance();
+            obj->draw(window);
+        }
 
         // Display what was drawn on the screen, all at once
         window.display();
-        std::cout << "Displayed window\n";
     }
-
-    std::cout << "Exiting Normally\n";
     return 0;
 }
