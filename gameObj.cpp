@@ -87,8 +87,7 @@ void gameObj::peekAtInstance()
 		std::cout << "   Unknown Shape\n";
 	}
 	std::cout << "   Position: " << this->pos.x << ", " << this->pos.y << "\n";
-	std::cout << "   Speed: " << this->speed;
-	std::cout << "   Orientation: [" << this->movOrientation.x << ", " << this->movOrientation.y << "]\n";
+	std::cout << "   Velocity: " << this->velocity.x << ", " << this->velocity.y << "\n";
 }
 void gameObj::listAllInstances()
 {
