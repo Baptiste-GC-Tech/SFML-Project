@@ -66,6 +66,21 @@ void gameObj::draw(sf::RenderWindow& ARGwin)
 	ARGwin.draw(*this->shape);
 }
 
+// Determines the next position of the gameObj
+void gameObj::move(sf::Time ARGdeltaTime)
+{
+	this->peekAtInstance();
+	std::cout << "Delta time(ms) : " << ARGdeltaTime.asMilliseconds() << "\n";
+
+	// Calculates the position of gameObj after the transformation, assuming no obstacles exist
+	sf::Vector2f nextPos;
+	nextPos.x = (this->velocity.x * ARGdeltaTime.asSeconds()) + this->pos.x;
+	nextPos.y = (this->velocity.y * ARGdeltaTime.asSeconds()) + this->pos.y;
+
+	// Updates the position of gameObj
+	this->pos = nextPos;
+}
+
 /* >========{ Methods }========< */
 /* >========{         }========< */
 /* >========{ Peekers }========< */

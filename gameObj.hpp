@@ -22,19 +22,6 @@ private:
 	// Physics related attributes
 	sf::Vector2f velocity;
 
-	/* >========{    Attributes   }========< */
-	/* >========{                 }========< */
-	/* >========{ Transformations }========< */
-
-	// Physics transformations
-	void move(sf::Time ARGtime);
-	//void rotate();
-	//void bounce(sf::Shape* ARGcollider, int ARGbounciness);
-
-	//// Physics detectors
-	//bool objCollision();
-	//bool windowCollision();
-
 public:
 
 	/* >========{ Constructors }========< */
@@ -56,6 +43,15 @@ public:
 
 	// Drawing the shape on a window
 	void draw(sf::RenderWindow& ARGwin);
+
+	// Physics transformations
+	void move(sf::Time ARGdeltaTime);
+	//void rotate();
+	//void bounce(sf::Shape* ARGcollider, int ARGbounciness);
+
+	//// Physics detectors
+	//bool objCollision();
+	//bool windowCollision();
 
 	/* >========{ Methods }========< */
 	/* >========{         }========< */

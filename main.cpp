@@ -19,17 +19,26 @@ int main()
     format.width /= 2;
     sf::RenderWindow window(format, "Phfysicks");
 
+    // Creates a clock to use in the transformation calculations
+    sf::Clock clock;
+
     // #$ DEBUG
     // Absurd framerate limit to avoid flooding the console
-    window.setFramerateLimit(1);
+    window.setFramerateLimit(60);
 
     // #$ DEBUG
     // Test of gameObj class
-    gameObj dummyCircle(sf::Vector2f(5.f, 5.f), 30.f);
-    gameObj dummySquare(sf::Vector2f(100.f, 50.f), sf::Vector2f(30.f, 30.f));
+    gameObj dummySquare(sf::Vector2f(100.f, 50.f), sf::Vector2f(70.f, 120.f), sf::Vector2f(10.f, 10.f));
 
     while (window.isOpen())
     {
+
+        // Starts counting time at begining of loop
+        clock.restart();
+        //_sleep(1000 / 60);
+
+        // Closes the window if the cross button was pressed
+        // TODO : Move it over to inputManager class when it exists
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -41,11 +50,9 @@ int main()
         window.clear();
 
         // Draws everything needed in the window
-       dummySquare.listAllInstances();
-        std::cout << "\n\n Displaying...\n\n";
-        for (auto obj : dummyCircle.getLISTgameObj())
+        for (auto obj : dummySquare.getLISTgameObj())
         {
-            obj->peekAtInstance();
+            obj->move(clock.getElapsedTime());
             obj->draw(window);
         }
 
