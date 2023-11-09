@@ -27,6 +27,7 @@ gameObj::gameObj(sf::Vector2f ARGpos, sf::Vector2f ARGsize)
 {
 	this->pos = ARGpos;
 	sf::RectangleShape* rectangle = new sf::RectangleShape(ARGsize);
+	rectangle->setOrigin(rectangle->getSize().x / 2, rectangle->getSize().x / 2);
 	this->shape = rectangle;
 	this->velocity = sf::Vector2f(0.f, 0.f);
 	this->LISTgameObj.push_back(this);
@@ -35,6 +36,7 @@ gameObj::gameObj(sf::Vector2f ARGpos, sf::Vector2f ARGsize, sf::Vector2f ARGvelo
 {
 	this->pos = ARGpos;
 	sf::RectangleShape* rectangle = new sf::RectangleShape(ARGsize);
+	rectangle->setOrigin(rectangle->getSize().x / 2, rectangle->getSize().x / 2);
 	this->shape = rectangle;
 	this->velocity = ARGvelocity;
 	this->LISTgameObj.push_back(this);
@@ -54,9 +56,9 @@ gameObj::~gameObj()
 	std::cout << "gameObj was PURGED\n";
 }
 
-/* >========{ Constrcustors }========< */
-/* >========{               }========< */
-/* >========{    Methods    }========< */
+/* >========{ Constructors }========< */
+/* >========{              }========< */
+/* >========{    Methods   }========< */
 
 // Drawing the shape on a window
 void gameObj::draw(sf::RenderWindow& ARGwin)
@@ -79,6 +81,11 @@ void gameObj::move(sf::Time ARGdeltaTime)
 
 	// Updates the position of gameObj
 	this->pos = nextPos;
+}
+// Spinny spin
+void gameObj::rotate(float ARGangleRight)
+{
+	this->shape->setRotation(this->shape->getRotation() + ARGangleRight);
 }
 
 /* >========{ Methods }========< */

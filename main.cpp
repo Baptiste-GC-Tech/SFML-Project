@@ -53,6 +53,7 @@ int main()
         for (auto obj : dummySquare.getLISTgameObj())
         {
             obj->move(clock.getElapsedTime());
+            obj->rotate(1.f);
             obj->draw(window);
         }
 

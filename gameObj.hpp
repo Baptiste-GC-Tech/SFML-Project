@@ -46,8 +46,7 @@ public:
 
 	// Physics transformations
 	void move(sf::Time ARGdeltaTime);
-	//void rotate();
-	//void bounce(sf::Shape* ARGcollider, int ARGbounciness);
+	void rotate(float ARGangleRight);
 
 	//// Physics detectors
 	//bool objCollision();
