@@ -35,16 +35,6 @@ int main()
 
         // Starts counting time at begining of loop
         clock.restart();
-        //_sleep(1000 / 60);
-
-        // Closes the window if the cross button was pressed
-        // TODO : Move it over to inputManager class when it exists
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
 
         // Clears what was previously in the window to re-draw everything again
         window.clear();
