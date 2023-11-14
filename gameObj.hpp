@@ -29,7 +29,8 @@ private:
 	/* >========{                   }========< */
 	/* >========{    Vector stuff   }========< */
 
-	void normVec();
+	sf::Vector2f normVec(sf::Vector2f ARGvec);
+	sf::Vector2f angleBetween(sf::Vector2f ARGvecA, sf::Vector2f ARGvecB);
 
 public:
 
@@ -56,8 +57,8 @@ public:
 	void rotate(float ARGangleRight);
 
 	// Collisions related
-	bool chkCollisions(gameObj* ARGobj);
-	//bool windowCollision();
+	bool chkCollision(gameObj* ARGobj);
+	void winCollision(sf::RenderWindow& ARGwindow, sf::Vector2f ARGnextPos);
 
 	/* >========{ Methods }========< */
 	/* >========{         }========< */
@@ -75,8 +76,13 @@ public:
 	/* >========{         }========< */
 	/* >========{ Getters }========< */
 
+	// Getters
 	std::vector<gameObj*> getLISTgameObj();
 	sf::Shape* getShape();
 	sf::Vector2f getPos();
+	sf::Vector2f getDirection();
+
+	// Setters
+	void setDirection(sf::Vector2f ARGdirection);
 };
 #endif

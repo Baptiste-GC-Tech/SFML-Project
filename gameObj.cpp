@@ -4,18 +4,26 @@ std::vector<gameObj*> gameObj::LISTgameObj = {};
 
 /* >========{ Vector Stuff }========< */
 
-void gameObj::normVec()
+sf::Vector2f gameObj::normVec(sf::Vector2f ARGvec)
 {
-	// Calculates the norm of the direction vector
-	float vecNorm = sqrt(pow(this->direction.x, 2) + pow(this->direction.y, 2));
+	// Calculates the norm of the direction vector, and prepares the return value
+	sf::Vector2f vecResult = ARGvec;
+	float vecNorm = sqrt(pow(ARGvec.x, 2) + pow(ARGvec.y, 2));
 
 	// If the norm is neither 1 or -1 EXACTLY, norms the vector
 	if (!(vecNorm == 1 || vecNorm == -1))
 	{
 		// Norms all of the vector's components
-		this->direction.x /= vecNorm;
-		this->direction.y /= vecNorm;
+		ARGvec.x /= vecNorm;
+		ARGvec.y /= vecNorm;
 	}
+
+	return vecResult;
+}
+sf::Vector2f gameObj::angleBetween(sf::Vector2f ARGvecA, sf::Vector2f ARGvecB)
+{
+	// Calculates the angle. (scalar product / norms product) * (180 / pi) <- tp converta angle in degrees
+
 }
 
 
@@ -28,14 +36,11 @@ gameObj::gameObj(float ARGradius, sf::Vector2f ARGpos, sf::Vector2f ARGdirection
 	sf::CircleShape* circle = new sf::CircleShape(ARGradius);
 	this->shape = circle;
 	this->pos = ARGpos;
-	this->direction = ARGdirection;
+	this->direction = this->normVec(ARGdirection);
 	this->speed = ARGspeed;
 
 	// Adds the gameObj instance to the list
 	this->LISTgameObj.push_back(this);
-
-	// Norms the passed vector for direction, in was it was not
-	this->normVec();
 }
 
 // Rectangle Constructor
@@ -45,14 +50,11 @@ gameObj::gameObj(sf::Vector2f ARGsize, sf::Vector2f ARGpos, sf::Vector2f ARGdire
 	this->pos = ARGpos;
 	sf::RectangleShape* rectangle = new sf::RectangleShape(ARGsize);
 	this->shape = rectangle;
-	this->direction = ARGdirection;
+	this->direction = this->normVec(ARGdirection);
 	this->speed = ARGspeed;
 
 	// Adds the gameObj instance to the list
 	this->LISTgameObj.push_back(this);
-
-	// Norms the passed vector for direction, in was it was not
-	this->normVec();
 }
 
 // Destructor
@@ -89,9 +91,6 @@ sf::Vector2f gameObj::move(sf::Time ARGdeltaTime)
 	nextPos.x += this->direction.x * speed * ARGdeltaTime.asSeconds();
 	nextPos.y += this->direction.y * speed * ARGdeltaTime.asSeconds();
 
-	std::cout << "Delta time(ms) : " << ARGdeltaTime.asSeconds() << "\n";
-	std::cout << "NextPos: [" << nextPos.x << ", " << nextPos.y << "]\n";
-
 	// #$ DEBUG
 	// Updates the objetc position
 	this->pos = nextPos;
@@ -106,7 +105,7 @@ void gameObj::rotate(float ARGangleRight)
 }
 
 // Collision Checker between 2 objects (first one is the one before "." opeartor when  called)
-bool gameObj::chkCollisions(gameObj* ARGobj)
+bool gameObj::chkCollision(gameObj* ARGobj)
 {
 	sf::FloatRect testedBoundBox = this->shape->getLocalBounds();
 	sf::FloatRect obstacleBoundBox = ARGobj->shape->getLocalBounds();
@@ -118,6 +117,21 @@ bool gameObj::chkCollisions(gameObj* ARGobj)
 		std::cout << "....\n";
 
 	return result;
+}
+// Collision checker between the object and the window's borders
+void gameObj::winCollision(sf::RenderWindow& ARGwindow, sf::Vector2f ARGnextPos)
+{
+	// Performs the check horizzontally
+	if (ARGnextPos.x < 0 || ARGnextPos.x > ARGwindow.getSize().x)
+	{
+		this->direction.x *= -1;
+	}
+
+	// Performs the check vertically
+	if (ARGnextPos.y < 0 || ARGnextPos.y > ARGwindow.getSize().y)
+	{
+		this->direction.y *= -1;
+	}
 }
 
 /* >========{ Methods }========< */
@@ -183,10 +197,10 @@ void gameObj::showDirectionVector(sf::RenderWindow& ARGwindow)
 	float angle = atan(abs(this->direction.y) / abs(this->direction.x)) * (180/M_PI); // Uses a mathematical formula AND a conversion from radians to degrees
 
 	// Tests to tweak the value obtained, in order to fit what .setRotation interprets as being up, down, left or right
-	if (this->direction.x < 0)
-		angle += 90;
-	if (this->direction.y < 0)
-		angle *= -1;
+	/*if (this->direction.x < 0)
+		angle += 90;*/
+	/*if (this->direction.y < 0)
+		angle *= -1;*/
 
 	// Finally, sets the "line"'s rotation
 	directionVector.setRotation(angle);
@@ -205,3 +219,6 @@ void gameObj::showDirectionVector(sf::RenderWindow& ARGwindow)
 std::vector<gameObj*> gameObj::getLISTgameObj() { return this->LISTgameObj; }
 sf::Shape* gameObj::getShape() { return this->shape; };
 sf::Vector2f gameObj::getPos() { return this->pos; }
+sf::Vector2f gameObj::getDirection() { return this->direction; }
+
+void gameObj::setDirection(sf::Vector2f ARGdirection) { this->direction = ARGdirection; }
