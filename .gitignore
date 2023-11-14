@@ -1,3 +1,5 @@
+include/
+lib/
 .vs/
 Debug/
 x64/

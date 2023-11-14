@@ -18,24 +18,23 @@ int main()
     format.height /= 2;
     format.width /= 2;
     sf::RenderWindow window(format, "Phfysicks");
+    window.setFramerateLimit(60);
 
     // Creates a clock to use in the transformation calculations
     sf::Clock clock;
 
     // #$ DEBUG
-    // Absurd framerate limit to avoid flooding the console
-    window.setFramerateLimit(60);
-
-    // #$ DEBUG
     // Test of gameObj class
-    gameObj dummySquare(sf::Vector2f(100.f, 50.f), sf::Vector2f(70.f, 120.f), sf::Vector2f(10.f, 10.f));
+    gameObj UR(20.f, sf::Vector2f(300.f, 150.f), sf::Vector2f(1.f, 1.f), 100.f);
+    gameObj UL(20.f, sf::Vector2f(350.f, 150.f), sf::Vector2f(-2.f, 1.f), 100.f);
+    gameObj DL(20.f, sf::Vector2f(400.f, 150.f), sf::Vector2f(-1.f, -1.f), 100.f);
+    gameObj DR(20.f, sf::Vector2f(450.f, 150.f), sf::Vector2f(1.f, -1.f), 100.f);
 
     while (window.isOpen())
     {
 
         // Starts counting time at begining of loop
         clock.restart();
-        //_sleep(1000 / 60);
 
         // Closes the window if the cross button was pressed
         // TODO : Move it over to inputManager class when it exists
@@ -50,11 +49,14 @@ int main()
         window.clear();
 
         // Draws everything needed in the window
-        for (auto obj : dummySquare.getLISTgameObj())
+        for (auto obj : UR.getLISTgameObj())
         {
             obj->move(clock.getElapsedTime());
-            obj->rotate(1.f);
             obj->draw(window);
+            obj->showLocalBounds(window);
+            obj->showDirectionVector(window);
+
+
         }
 
         // Display what was drawn on the screen, all at once

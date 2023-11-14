@@ -1,8 +1,10 @@
 #ifndef GAME_OBJ
 #define GAME_OBJ
+#define _USE_MATH_DEFINES // Neccessary for pi usage
 
 #include <iostream>
 #include <vector>
+#include <cmath>
 
 #include <SFML/Graphics.hpp>
 
@@ -20,19 +22,24 @@ private:
 	sf::Shape* shape;
 
 	// Physics related attributes
-	sf::Vector2f velocity;
+	sf::Vector2f direction;
+	float speed;
+
+	/* >========{     Attributes    }========< */
+	/* >========{                   }========< */
+	/* >========{    Vector stuff   }========< */
+
+	void normVec();
 
 public:
 
 	/* >========{ Constructors }========< */
 
 	// Circle Constructors
-	gameObj(sf::Vector2f ARGpos, float ARGradius);
-	gameObj(sf::Vector2f ARGpos, float ARGradius, sf::Vector2f ARGvelocity);
+	gameObj(float ARGradius, sf::Vector2f ARGpos, sf::Vector2f ARGdirection = sf::Vector2f(1.f, 0.f), float ARGspeed = 0.f);
 	
 	// Rectangle Constrcutors
-	gameObj(sf::Vector2f ARGpos, sf::Vector2f ARGsize);
-	gameObj(sf::Vector2f ARGpos, sf::Vector2f ARGsize, sf::Vector2f ARGvelocity);
+	gameObj(sf::Vector2f ARGsize, sf::Vector2f ARGpos, sf::Vector2f ARGdirection = sf::Vector2f(1.f, 0.f), float ARGspeed = 0.f);
 	
 	// Destructor
 	~gameObj();
@@ -45,11 +52,11 @@ public:
 	void draw(sf::RenderWindow& ARGwin);
 
 	// Physics transformations
-	void move(sf::Time ARGdeltaTime);
+	sf::Vector2f move(sf::Time ARGdeltaTime);
 	void rotate(float ARGangleRight);
 
-	//// Physics detectors
-	//bool objCollision();
+	// Collisions related
+	bool chkCollisions(gameObj* ARGobj);
 	//bool windowCollision();
 
 	/* >========{ Methods }========< */
@@ -60,10 +67,16 @@ public:
 	void peekAtInstance();
 	void listAllInstances();
 
+	// Show graphically a couple of useful information about objects on the window
+	void showLocalBounds(sf::RenderWindow& ARGwindow);
+	void showDirectionVector(sf::RenderWindow& ARGwindow);
+
 	/* >========{ Peekers }========< */
 	/* >========{         }========< */
 	/* >========{ Getters }========< */
 
 	std::vector<gameObj*> getLISTgameObj();
+	sf::Shape* getShape();
+	sf::Vector2f getPos();
 };
 #endif
