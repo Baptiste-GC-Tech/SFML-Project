@@ -20,10 +20,14 @@ sf::Vector2f gameObj::normVec(sf::Vector2f ARGvec)
 
 	return vecResult;
 }
-sf::Vector2f gameObj::angleBetween(sf::Vector2f ARGvecA, sf::Vector2f ARGvecB)
+float gameObj::angleBetween(sf::Vector2f ARGvecA, sf::Vector2f ARGvecB)
 {
-	// Calculates the angle. (scalar product / norms product) * (180 / pi) <- tp converta angle in degrees
+	// Calculates the angle. (scalar product / norms product) * (180 / pi) <- tp convert angle in degrees
+	float scalarProduct = (ARGvecA.x * ARGvecB.x) + (ARGvecA.y * ARGvecB.y);
+	float normProduct = (sqrt(pow(ARGvecA.x, 2) + pow(ARGvecA.y, 2))) * (sqrt(pow(ARGvecB.x, 2) + pow(ARGvecB.y, 2)));
+	float angle = (scalarProduct / normProduct) * (180 / M_PI);
 
+	return angle;
 }
 
 
@@ -121,14 +125,22 @@ bool gameObj::chkCollision(gameObj* ARGobj)
 // Collision checker between the object and the window's borders
 void gameObj::winCollision(sf::RenderWindow& ARGwindow, sf::Vector2f ARGnextPos)
 {
+	// Stores the object siez, regardeless of Shape type, for testing later
+	float objSize;
+	if (const sf::CircleShape* circle = dynamic_cast<sf::CircleShape*>(this->shape))
+		objSize = 2 * circle->getRadius();
+	else if (const sf::RectangleShape* rect = dynamic_cast<sf::RectangleShape*>(this->shape))
+		objSize = rect->getSize().x;
+
+
 	// Performs the check horizzontally
-	if (ARGnextPos.x < 0 || ARGnextPos.x > ARGwindow.getSize().x)
+	if (ARGnextPos.x < 0 || ARGnextPos.x + objSize > ARGwindow.getSize().x)
 	{
 		this->direction.x *= -1;
 	}
 
 	// Performs the check vertically
-	if (ARGnextPos.y < 0 || ARGnextPos.y > ARGwindow.getSize().y)
+	if (ARGnextPos.y < 0 || ARGnextPos.y + objSize > ARGwindow.getSize().y)
 	{
 		this->direction.y *= -1;
 	}
@@ -194,13 +206,9 @@ void gameObj::showDirectionVector(sf::RenderWindow& ARGwindow)
 		directionVector.setPosition(this->getPos() + sf::Vector2f(rect->getSize().x / 2, rect->getSize().y / 2));
 
 	// Determines the angle (in degrees) that must be passed to setRotation()
-	float angle = atan(abs(this->direction.y) / abs(this->direction.x)) * (180/M_PI); // Uses a mathematical formula AND a conversion from radians to degrees
-
-	// Tests to tweak the value obtained, in order to fit what .setRotation interprets as being up, down, left or right
-	/*if (this->direction.x < 0)
-		angle += 90;*/
-	/*if (this->direction.y < 0)
-		angle *= -1;*/
+	float angle = this->angleBetween(this->direction, sf::Vector2f(1.f, 0.f));
+	if (this->direction.y < 0)
+		angle *= -1;
 
 	// Finally, sets the "line"'s rotation
 	directionVector.setRotation(angle);

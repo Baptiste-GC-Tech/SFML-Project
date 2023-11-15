@@ -18,7 +18,7 @@ int main()
     format.height /= 2;
     format.width /= 2;
     sf::RenderWindow window(format, "Phfysicks");
-    window.setFramerateLimit(5);
+    window.setFramerateLimit(60);
 
     // Creates a clock to use in the transformation calculations
     sf::Clock clock;
@@ -26,9 +26,9 @@ int main()
     // #$ DEBUG
     // Test of gameObj class
     gameObj UR(20.f, sf::Vector2f(300.f, 150.f), sf::Vector2f(-1.f, -1.f), 150.f);
-    //gameObj UL(20.f, sf::Vector2f(350.f, 150.f), sf::Vector2f(-2.f, 1.f), 200.f);
-    //gameObj DL(20.f, sf::Vector2f(400.f, 150.f), sf::Vector2f(-1.f, -1.f), 100.f);
-    //gameObj DR(20.f, sf::Vector2f(450.f, 150.f), sf::Vector2f(1.f, -1.f), 100.f);
+    gameObj UL(20.f, sf::Vector2f(350.f, 150.f), sf::Vector2f(-2.f, 1.f), 200.f);
+    gameObj DL(20.f, sf::Vector2f(400.f, 150.f), sf::Vector2f(-1.f, -1.f), 100.f);
+    gameObj DR(20.f, sf::Vector2f(450.f, 150.f), sf::Vector2f(1.f, -1.f), 100.f);
 
     float f = -1.f;
 
@@ -62,7 +62,7 @@ int main()
         for (auto obj : UR.getLISTgameObj())
         {
             std::cout << "Drawing...\n";
-            //obj->winCollision(window, obj->move(clock.getElapsedTime()));
+            obj->winCollision(window, obj->move(clock.getElapsedTime()));
 
             obj->draw(window);
             obj->showLocalBounds(window);

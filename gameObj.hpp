@@ -30,7 +30,7 @@ private:
 	/* >========{    Vector stuff   }========< */
 
 	sf::Vector2f normVec(sf::Vector2f ARGvec);
-	sf::Vector2f angleBetween(sf::Vector2f ARGvecA, sf::Vector2f ARGvecB);
+	float angleBetween(sf::Vector2f ARGvecA, sf::Vector2f ARGvecB);
 
 public:
 
