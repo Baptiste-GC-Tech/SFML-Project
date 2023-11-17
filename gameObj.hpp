@@ -22,6 +22,7 @@ private:
 	sf::Shape* shape;
 
 	// Physics related attributes
+	std::vector<gameObj*> collidingWith;
 	sf::Vector2f direction;
 	float speed;
 
@@ -57,8 +58,8 @@ public:
 	void rotate(float ARGangleRight);
 
 	// Collisions related
-	bool chkCollision(gameObj* ARGobj);
-	void winCollision(sf::RenderWindow& ARGwindow, sf::Vector2f ARGnextPos);
+	void collisionCircleRectangle(sf::Vector2f nextPosition, gameObj* ARGobj);
+	void windowCollision(sf::RenderWindow& ARGwindow, sf::Vector2f ARGnextPos);
 
 	/* >========{ Methods }========< */
 	/* >========{         }========< */
@@ -72,9 +73,9 @@ public:
 	void showLocalBounds(sf::RenderWindow& ARGwindow);
 	void showDirectionVector(sf::RenderWindow& ARGwindow);
 
-	/* >========{ Peekers }========< */
-	/* >========{         }========< */
-	/* >========{ Getters }========< */
+	/* >========{   Peekers   }========< */
+	/* >========{             }========< */
+	/* >========{ Interactors }========< */
 
 	// Getters
 	std::vector<gameObj*> getLISTgameObj();
