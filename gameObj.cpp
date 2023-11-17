@@ -310,3 +310,19 @@ sf::Vector2f gameObj::getPos() { return this->pos; }
 sf::Vector2f gameObj::getDirection() { return this->direction; }
 
 void gameObj::setDirection(sf::Vector2f ARGdirection) { this->direction = ARGdirection; }
+
+float gameObj::getRotation() const {
+	return shape->getRotation();
+}
+sf::Vector2f gameObj::getMousePosition(const sf::RenderWindow& window) {
+	sf::Vector2i mousePostionInt = sf::Mouse::getPosition(window);
+	sf::Vector2f mousePositionFloat(static_cast<float>(mousePostionInt.x), static_cast<float>(mousePostionInt.y));
+
+	// Convertir la position de la fenêtre en sf::Vector2f
+	sf::Vector2f windowPositionFloat(static_cast<float>(window.getPosition().x), static_cast<float>(window.getPosition().y));
+
+	// Soustraire la position de la fenêtre pour obtenir la position relative à la fenêtre
+	mousePositionFloat -= windowPositionFloat;
+
+	return mousePositionFloat;
+}

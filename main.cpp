@@ -12,6 +12,7 @@
 
 // Include for custom classes
 #include "gameObj.hpp"
+#include "Canon.hpp"
 
 int main()
 {
@@ -20,13 +21,15 @@ int main()
     format.height /= 2;
     format.width /= 2;
     sf::RenderWindow window(format, "Phfysicks");
-    window.setFramerateLimit(1);
+    //window.setFramerateLimit(1);
 
     // Creates a clock to use in the transformation calculations
     sf::Clock clock;
 
     // #$ DEBUG
     // Test of gameObj class
+    Canon canon(sf::Vector2f(100.f, 50.f), sf::Vector2f(500, 200.f), sf::Color(255, 255, 0, 180));
+    
     gameObj UR(20.f, sf::Vector2f(250.f, 250.f), sf::Vector2f(1.f, 1.f), 150.f);
     gameObj brick(sf::Vector2f(500.f, 80.f), sf::Vector2f(300.f, 300.f));
 
@@ -44,6 +47,9 @@ int main()
                 window.close();
         }
 
+        if (sf::Mouse::Left) {
+            gameObj UR(20.f, sf::Vector2f(250.f, 250.f), sf::Vector2f(1.f, 1.f), 150.f);
+        }
         // Clears what was previously in the window to re-draw everything again
         window.clear();
 
@@ -62,6 +68,8 @@ int main()
             }
         }
 
+        canon.updateRotation(canon.angleBetween(canon.getMousePosition(window), (canon.getPosCannon())));
+        canon.draw(window);
         //UR.collisionCircleRectangle(UR.move(clock.getElapsedTime()), &brick1);
 
         // Display what was drawn on the screen, all at once
@@ -69,7 +77,7 @@ int main()
 
         // Starts counting time at begining of loop
         clock.restart();
-        _sleep((int)1000 / 250);
+        //_sleep((int)1000 / 250);
     }
     return 0;
 }

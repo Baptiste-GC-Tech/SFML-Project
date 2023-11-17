@@ -30,10 +30,11 @@ private:
 	/* >========{                   }========< */
 	/* >========{    Vector stuff   }========< */
 
-	sf::Vector2f normVec(sf::Vector2f ARGvec);
-	float angleBetween(sf::Vector2f ARGvecA, sf::Vector2f ARGvecB);
+	
 
 public:
+	sf::Vector2f normVec(sf::Vector2f ARGvec);
+	float angleBetween(sf::Vector2f ARGvecA, sf::Vector2f ARGvecB);
 
 	/* >========{ Constructors }========< */
 
@@ -82,6 +83,8 @@ public:
 	sf::Shape* getShape();
 	sf::Vector2f getPos();
 	sf::Vector2f getDirection();
+	sf::Vector2f getMousePosition(const sf::RenderWindow& window);
+	float getRotation() const;
 
 	// Setters
 	void setDirection(sf::Vector2f ARGdirection);
